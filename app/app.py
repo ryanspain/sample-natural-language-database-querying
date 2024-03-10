@@ -7,9 +7,10 @@ from langchain.schema import StrOutputParser
 from langchain.schema.runnable import Runnable, RunnablePassthrough
 from langchain.schema.runnable.config import RunnableConfig
 from langchain_community.utilities.sql_database import SQLDatabase
+import os
 
 db = SQLDatabase.from_uri(
-    database_uri="mysql://user:password@host.docker.internal:3306/classicmodels",
+    database_uri=os.getenv('DATABASE_URI'),
     sample_rows_in_table_info=0
 )
 
@@ -21,8 +22,8 @@ def run_query(query):
 
 # Instantiate the LLM
 llm = Ollama(
-    model="mistral:7b-instruct-v0.2-q5_K_M",
-    base_url="http://host.docker.internal:11434"
+    model=os.getenv('LLM_MODEL'),
+    base_url=os.getenv('LLM_URL')
 )
 
 # Add the LLM provider
