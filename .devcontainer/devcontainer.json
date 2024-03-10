@@ -1,0 +1,16 @@
+{
+	"name": "Database Chat",
+	"dockerComposeFile": ["../docker-compose.yml"],
+	"service": "app",
+	"runServices": [ "app", "database", "database-management" ],
+	"workspaceFolder": "/workspace/app",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python"
+			]
+		}
+	},
+	"postStartCommand": "pip3 install --user -r requirements.txt",
+	"shutdownAction": "stopCompose"
+}
