@@ -7,7 +7,7 @@ services:
       context: ./app
     environment:
       DATABASE_URI: mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_SCHEMA}
-      LLM_URL: ${LLM_HOST}:${LLM_PORT}
+      LLM_URL: ${LLM_URL}
       LLM_MODEL: ${LLM_MODEL}
     volumes:
       - .:/workspace:cached

@@ -9,12 +9,27 @@
 		"database",
 		"database-management"
 	],
-	"workspaceFolder": "/workspace/app",
+	"workspaceFolder": "/workspace",
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"ms-python.python"
-			]
+			],
+			"settings": {
+				"launch": {
+					"version": "0.2.0",
+					"configurations": [
+						{
+							"name": "Debug",
+							"type": "debugpy",
+							"request": "launch",
+							"cwd": "${workspaceFolder}/app",
+							"program": "/usr/local/bin/chainlit",
+							"args": ["run", "./app.py", "-w"]
+						  }
+					]
+				}
+			}
 		}
 	}
 }
