@@ -23,7 +23,8 @@ def run_query(query):
 # Instantiate the LLM
 llm = Ollama(
     model=os.getenv('LLM_MODEL'),
-    base_url=os.getenv('LLM_URL')
+    base_url=os.getenv('LLM_URL'),
+    verbose=1
 )
 
 # Add the LLM provider
