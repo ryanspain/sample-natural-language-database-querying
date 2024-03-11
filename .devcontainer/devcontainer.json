@@ -13,8 +13,7 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-python.python",
-				"ms-vscode-remote.vscode-remote-extensionpack"
+				"ms-python.python"
 			],
 			"settings": {
 				"launch": {
