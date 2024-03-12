@@ -77,14 +77,19 @@ async def on_chat_start():
 
     result_interpreter_prompt = ChatPromptTemplate.from_template(
         """
-        Summarize the below data that was found which answers the question "{question}" using tables as you deem fit.
+        Summarize the below "data" for a business user that was found which answers their question "{question}". Use tables for formatting as you deem fit.
 
+        Data
         {result}
+
+        Query
+        {query}
         """
     )
 
     result_interpreter_chain = (
         RunnablePassthrough.assign(result=query_executor_chain)
+        | RunnablePassthrough.assign(query=query_writer_chain)
         | result_interpreter_prompt
         | llm
         | StrOutputParser()
