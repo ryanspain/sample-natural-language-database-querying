@@ -51,7 +51,7 @@ add_llm_provider(
 async def on_chat_start():
     query_writer_prompt = ChatPromptTemplate.from_template(
         """
-        I want you to return just a plain-text SQL query in your response to below prompt. Do not return any text other than a SQL query.
+        I want you to return just a plain-text SQL query (No comments) in your response to below prompt. Do not return any text other than a SQL query.
 
         Generate a SQL query that answers the question "{question}".
 
