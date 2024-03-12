@@ -94,11 +94,6 @@ async def on_chat_start():
     #     query_writer_chain | query_executor_chain
     # )
 
-    # execute_query = QuerySQLDataBaseTool(db=db)
-    # write_query = create_sql_query_chain(llm, db)
-    # chain = write_query | execute_query
-    # chain.invoke({"question": "How many employees are there"})
-
     cl.user_session.set("runnable", result_interpreter_chain)
 
 
