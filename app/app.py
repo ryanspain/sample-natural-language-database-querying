@@ -1,10 +1,14 @@
 import chainlit as cl
+from operator import itemgetter
 from chainlit.playground.config import add_llm_provider
 from chainlit.playground.providers.langchain import LangchainGenericProvider
+from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
+from langchain.chains import create_sql_query_chain
 from langchain.llms.ollama import Ollama
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema import StrOutputParser
 from langchain.schema.runnable import Runnable, RunnablePassthrough
+from langchain_core.runnables import RunnableLambda
 from langchain.schema.runnable.config import RunnableConfig
 from langchain_community.utilities.sql_database import SQLDatabase
 import os
@@ -18,6 +22,7 @@ def get_schema(_):
     return db.get_table_info()
 
 def run_query(query):
+    print(query)
     return db.run(query)
 
 # Instantiate the LLM
@@ -44,9 +49,9 @@ add_llm_provider(
 
 @cl.on_chat_start
 async def on_chat_start():
-    prompt = ChatPromptTemplate.from_template(
+    query_writer_prompt = ChatPromptTemplate.from_template(
         """
-        I want you to return just a SQL query in your response to below prompt. Do not return any text other than a SQL query enclosed in triple back-ticks (```).
+        I want you to return just a plain-text SQL query (No comments) in your response to below prompt. Do not return any text other than a SQL query.
 
         Generate a SQL query that answers the question "{question}".
 
@@ -54,9 +59,47 @@ async def on_chat_start():
         {schema}
         """
     )
-    runnable = RunnablePassthrough.assign(schema=get_schema) | prompt | llm | StrOutputParser()
 
-    cl.user_session.set("runnable", runnable)
+    query_writer_chain = (
+        {
+            "question": itemgetter("question"),
+            "schema": get_schema
+        }
+        | query_writer_prompt 
+        | llm 
+        | StrOutputParser()
+    )
+
+    query_executor_chain = (
+        query_writer_chain
+        | RunnableLambda(run_query)
+    )
+
+    result_interpreter_prompt = ChatPromptTemplate.from_template(
+        """
+        Summarize the below "data" for a business user that was found which answers their question "{question}". Use tables for formatting as you deem fit.
+
+        Data
+        {result}
+
+        Query
+        {query}
+        """
+    )
+
+    result_interpreter_chain = (
+        RunnablePassthrough.assign(result=query_executor_chain)
+        | RunnablePassthrough.assign(query=query_writer_chain)
+        | result_interpreter_prompt
+        | llm
+        | StrOutputParser()
+    )
+
+    # chain = (
+    #     query_writer_chain | query_executor_chain
+    # )
+
+    cl.user_session.set("runnable", result_interpreter_chain)
 
 
 @cl.on_message

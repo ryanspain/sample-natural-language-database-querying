@@ -1,3 +1,8 @@
-# Welcome to Database Chat
+# Welcome to Query Tarintino
 
-Some example queries should be places here.
+Try asking a question about the data in the database 💭
+
+## Some examples
+
+- What was the best sales year?
+- Which customers have the highest credit?
