@@ -1,4 +1,4 @@
-# Welcome to Query Tarintino
+# Natural language database querying
 
 Try asking a question about the data in the database 💭
 
