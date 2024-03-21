@@ -10,7 +10,7 @@ Runs locally. No internet.
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Visual Studio Code](https://code.visualstudio.com/) + [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension
-- A dedicated Nvidia GPU 
+- A dedicated NVIDIA GPU 
 
 ## Running locally
 
