@@ -6,6 +6,8 @@ Runs locally. No internet.
 
 ![Demo](app/demo.gif)
 
+This project includes the [classicmodels](https://www.mysqltutorial.org/getting-started-with-mysql/mysql-sample-database/) sample MySQL database.
+
 ## Requirements
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
