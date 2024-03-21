@@ -32,7 +32,6 @@ services:
     environment:
       - TZ=Etc/UTC
     ports:
-      # TODO figure out what each of these is for
       - 3000:3000
       - 3001:3001
     volumes:
@@ -42,20 +41,20 @@ services:
     depends_on:
       - database
 
-#   ollama:
-#     container_name: ollama
-#     image: ollama/ollama:0.1.27
-#     ports:
-#       - "11434:11434"
-#     volumes:
-#       - ollama:/root/.ollama
-#     deploy:
-#       resources:
-#         reservations:
-#           devices:
-#             - driver: nvidia
-#               count: 1
-#               capabilities: [gpu]
+  llm:
+    container_name: ollama
+    image: ollama/ollama:0.1.27
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
-# volumes:
-#   ollama:
+volumes:
+  ollama:
