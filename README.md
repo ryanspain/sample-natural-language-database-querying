@@ -1,13 +1,15 @@
 # Querying a database using natural language
 
-This sample demonstrates querying a MySQL database using natural language thanks to LangChain, Chainlit, and Ollama.
+This sample demonstrates querying a MySQL database using natural language thanks to [LangChain](https://www.langchain.com/), [Chainlit](https://docs.chainlit.io/get-started/overview), and [Ollama](https://ollama.com/).
+
+Runs locally. No internet.
 
 ![Demo](app/demo.gif)
 
 ## Requirements
 
-- Docker Desktop
-- Visual Studio Code + Dev Containers extension
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Visual Studio Code](https://code.visualstudio.com/) + [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension
 - A dedicated Nvidia GPU 
 
 ## Running locally
